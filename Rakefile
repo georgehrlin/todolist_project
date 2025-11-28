@@ -1,8 +1,24 @@
 require 'rake/testtask'
+require 'bundler/gem_tasks'
+require 'find'
 
 desc 'Say hello'
 task :hello do
   puts "Hello there. This is the 'hello' task."
+end
+
+# desc 'Display files'
+# task :display_files do
+#   Find::find('./') { |path| puts path if File::file?(File.open(path)) }
+# end
+
+# Official Solution
+desc 'Display inventory of all files'
+task :inventory do
+  Find.find('.') do |name|
+    next if name.include?('/.')
+    puts name if File.file?(name)
+  end
 end
 
 desc 'Run tests'
